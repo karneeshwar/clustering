@@ -85,4 +85,3 @@ if __name__ == '__main__':
 
     # Print the quantization error
     print(quant_error)
-# 78.94506582597724
