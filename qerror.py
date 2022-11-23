@@ -6,6 +6,53 @@ import sys as system
 import numpy as numpython
 
 
+# Function: compute_qe
+# Parameters: matrix = input data, groups = input label, data_mean = mean respective to each cluster
+#   To compute the quantization error in clustering
+def compute_qe(matrix, groups, data_mean):
+    # Compute the quantization error
+    rows, columns = matrix.shape
+    q_error = 0
+    for row in range(rows):
+        current_label = groups[row]
+        current_mean = data_mean[current_label]
+        q_error += numpython.sum(numpython.square(matrix[row, :] - current_mean))
+
+    # Return the quantization error
+    return q_error
+
+
+# Function: compute_means
+# Parameters: matrix = input data, groups = input label
+#   To compute the mean point of each cluster
+def compute_means(matrix, groups):
+    # Compute unique labels, count and sum of data corresponding to each label
+    rows, columns = matrix.shape
+    unique_groups = numpython.unique(groups)
+    group_count = unique_groups.shape[0]
+    group_sum = numpython.zeros([group_count, columns])
+    group_size = numpython.zeros([1, group_count])
+    group_index = {}
+    group_counter = 0
+
+    for each_label in unique_groups:
+        group_index[each_label] = group_counter
+        group_counter += 1
+        for row in range(rows):
+            if groups[row] == each_label:
+                for col in range(columns):
+                    group_sum[group_index[each_label], col] += matrix[row, col]
+                group_size[0, group_index[each_label]] += 1
+
+    # Compute the mean of data in each label and store it in a dictionary
+    data_mean = {}
+    for row in range(group_sum.shape[0]):
+        data_mean[unique_groups[row]] = group_sum[row, :] / group_size[0, row]
+
+    # Return the new cluster mean
+    return data_mean
+
+
 # Function: main
 #   checks for arguments, imports data and computes quantization error
 if __name__ == '__main__':
@@ -17,48 +64,25 @@ if __name__ == '__main__':
     # Exception handling for input files
     while 1:
         try:
-            data = numpython.asmatrix(numpython.genfromtxt(system.argv[1], delimiter=',', autostrip=True))
+            input_data = numpython.asmatrix(numpython.genfromtxt(system.argv[1], delimiter=',', autostrip=True))
             break
         except IOError:
             print('Input data file not found')
             system.exit()
     while 1:
         try:
-            label = numpython.genfromtxt(system.argv[2], delimiter=',', autostrip=True, dtype='int')
+            labels = numpython.genfromtxt(system.argv[2], delimiter=',', autostrip=True)
             break
         except IOError:
             print('Input labels file not found')
             system.exit()
 
-    # Compute unique labels, count and sum of data corresponding to each label
-    unique_labels = numpython.unique(label)
-    label_count = unique_labels.shape[0]
-    rows, columns = data.shape
-    label_sum = numpython.zeros([label_count, columns])
-    label_size = numpython.zeros([1, label_count], dtype='int')
-    label_index = {}
-    label_counter = 0
+    # Call the function to compute the cluster means
+    cluster_means = compute_means(input_data, labels)
 
-    for each_label in unique_labels:
-        label_index[each_label] = label_counter
-        label_counter += 1
-        for row in range(rows):
-            if label[row] == each_label:
-                for col in range(columns):
-                    label_sum[label_index[each_label], col] += data[row, col]
-                label_size[0, label_index[each_label]] += 1
+    # Call the function to compute the quantization error
+    quant_error = compute_qe(input_data, labels, cluster_means)
 
-    # Compute the mean of data in each label and store it in a dictionary
-    data_mean = {}
-    for row in range(label_sum.shape[0]):
-        data_mean[unique_labels[row]] = label_sum[row, :]/label_size[0, row]
-
-    # Compute the quantization error
-    q_error = 0
-    for row in range(rows):
-        current_label = label[row]
-        current_mean = data_mean[current_label]
-        q_error += numpython.sum(numpython.square(data[row, :] - current_mean))
-
-    # Print the quantization error in console
-    print(q_error)
+    # Print the quantization error
+    print(quant_error)
+# 78.94506582597724
