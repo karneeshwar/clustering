@@ -83,12 +83,21 @@ if __name__ == '__main__':
         # Decrement the number of r_iterations each time
         r_iterations -= 1
 
-        # Randomly select k_clusters number of rows from the input data which we use as initial mean of required clusters
-        # Create a dictionary (cluster: initial mean of clusters) with keys as cluster and value as the randomly selected row
+        # Randomly select a row and apply kmeans++ initialization algorithm to determine the initial cluster means
+        initializer = 1
         cluster_mean = {}
-        random_datas = numpython.random.choice(range(0, datas), size=k_clusters)
-        for random_data in range(len(random_datas)):
-            cluster_mean[random_data + 1] = input_data[random_datas[random_data]]
+        current_center = input_data[numpython.random.choice(range(0, datas), size=1)[0]]
+        cluster_mean[initializer] = current_center
+        while k_clusters > initializer:
+            initializer += 1
+            dist_max = float('-inf')
+            for data in range(datas):
+                dist_total = 0
+                for cluster in cluster_mean.keys():
+                    dist_total += numpython.sum(numpython.square(input_data[data] - cluster_mean[cluster]))
+                if dist_total >= dist_max:
+                    current_center, dist_max = input_data[data], dist_total
+            cluster_mean[initializer] = current_center
 
         # Run the clustering algorithm until convergence
         while 1:
