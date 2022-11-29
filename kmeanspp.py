@@ -86,17 +86,22 @@ if __name__ == '__main__':
         # Randomly select a row and apply kmeans++ initialization algorithm to determine the rest of the cluster means
         initializer = 1
         cluster_mean = {initializer: input_data[numpython.random.choice(range(0, datas))]}
+        # Run until we have k means for clusters k clusters
         while k_clusters > initializer:
             initializer += 1
             dist_dr = 0
             weights = [0]*datas
+            # Compute distance of each data point from the cluster means
             for data in range(datas):
                 dist_nr = 0
+                # Compute the total distance from all the cluster means
                 for cluster in cluster_mean.keys():
                     dist_nr += numpython.sum(numpython.square(input_data[data] - cluster_mean[cluster]))
+                # The weights are proportional to the distance square of each data point from the cluster means
                 dist_dr += dist_nr ** 2
                 weights[data] = dist_nr ** 2
             weights /= dist_dr
+            # Randomly choose the next cluster mean using the calculated weights
             cluster_mean[initializer] = input_data[numpython.random.choice(range(0, datas), p=weights)]
 
         # Run the clustering algorithm until convergence
