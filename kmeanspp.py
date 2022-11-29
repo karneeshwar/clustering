@@ -85,7 +85,7 @@ if __name__ == '__main__':
 
         # Randomly select a row and apply kmeans++ initialization algorithm to determine the rest of the cluster means
         initializer = 1
-        cluster_mean = {initializer: input_data[numpython.random.choice(range(0, datas), size=1)[0]]}
+        cluster_mean = {initializer: input_data[numpython.random.choice(range(0, datas))]}
         while k_clusters > initializer:
             initializer += 1
             dist_dr = 0
@@ -97,7 +97,7 @@ if __name__ == '__main__':
                 dist_dr += dist_nr ** 2
                 weights[data] = dist_nr ** 2
             weights /= dist_dr
-            cluster_mean[initializer] = input_data[numpython.random.choice(range(0, datas), size=1, p=weights)[0]]
+            cluster_mean[initializer] = input_data[numpython.random.choice(range(0, datas), p=weights)]
 
         # Run the clustering algorithm until convergence
         while 1:
