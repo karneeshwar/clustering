@@ -93,10 +93,10 @@ if __name__ == '__main__':
             weights = [0]*datas
             # Compute distance of each data point from the cluster means
             for data in range(datas):
-                dist_nr = 0
-                # Compute the total distance from all the cluster means
+                dist_nr = float('inf')
+                # Compute the minimum distance from all the cluster means
                 for cluster in cluster_mean.keys():
-                    dist_nr += numpython.sum(numpython.square(input_data[data] - cluster_mean[cluster]))
+                    dist_nr = min(numpython.sum(numpython.square(input_data[data] - cluster_mean[cluster])), dist_nr)
                 # The weights are proportional to the distance square of each data point from the cluster means
                 dist_dr += dist_nr ** 2
                 weights[data] = dist_nr ** 2
