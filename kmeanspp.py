@@ -1,4 +1,4 @@
-# To compute the quantization error in clustering
+# To perform K-means++ clustering
 # import statements:
 #   sys for defining and retrieving program arguments
 #   numpy to import and perform matrix operations with given data
@@ -83,21 +83,26 @@ if __name__ == '__main__':
         # Decrement the number of r_iterations each time
         r_iterations -= 1
 
-        # Randomly select a row and apply kmeans++ initialization algorithm to determine the initial cluster means
+        # Randomly select a row and apply kmeans++ initialization algorithm to determine the rest of the cluster means
         initializer = 1
-        cluster_mean = {}
-        current_center = input_data[numpython.random.choice(range(0, datas), size=1)[0]]
-        cluster_mean[initializer] = current_center
+        cluster_mean = {initializer: input_data[numpython.random.choice(range(0, datas))]}
+        # Run until we have k means for k clusters
         while k_clusters > initializer:
             initializer += 1
-            dist_max = float('-inf')
+            dist_dr = 0
+            weights = [0]*datas
+            # Compute distance of each data point from the cluster means
             for data in range(datas):
-                dist_total = 0
+                dist_nr = float('inf')
+                # Compute the minimum distance from all the cluster means
                 for cluster in cluster_mean.keys():
-                    dist_total += numpython.sum(numpython.square(input_data[data] - cluster_mean[cluster]))
-                if dist_total >= dist_max:
-                    current_center, dist_max = input_data[data], dist_total
-            cluster_mean[initializer] = current_center
+                    dist_nr = min(numpython.sum(numpython.square(input_data[data] - cluster_mean[cluster]))**0.5, dist_nr)
+                # The weights are proportional to the distance square of each data point from the cluster means
+                dist_dr += dist_nr ** 2
+                weights[data] = dist_nr ** 2
+            weights /= dist_dr
+            # Randomly choose the next cluster mean using the calculated weights
+            cluster_mean[initializer] = input_data[numpython.random.choice(range(0, datas), p=weights)]
 
         # Run the clustering algorithm until convergence
         while 1:
@@ -106,7 +111,7 @@ if __name__ == '__main__':
             for data in range(datas):
                 dist_min = float('inf')
                 for cluster in cluster_mean.keys():
-                    current_dist = numpython.sum(numpython.square(input_data[data] - cluster_mean[cluster]))
+                    current_dist = numpython.sum(numpython.square(input_data[data] - cluster_mean[cluster]))**0.5
                     if dist_min >= current_dist:
                         current_labels[data], dist_min = cluster, current_dist
 

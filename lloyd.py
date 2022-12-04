@@ -1,4 +1,4 @@
-# To compute the quantization error in clustering
+# To perform Lloyd's K-means clustering
 # import statements:
 #   sys for defining and retrieving program arguments
 #   numpy to import and perform matrix operations with given data
@@ -97,7 +97,7 @@ if __name__ == '__main__':
             for data in range(datas):
                 dist_min = float('inf')
                 for cluster in cluster_mean.keys():
-                    current_dist = numpython.sum(numpython.square(input_data[data] - cluster_mean[cluster]))
+                    current_dist = numpython.sum(numpython.square(input_data[data] - cluster_mean[cluster]))**0.5
                     if dist_min >= current_dist:
                         current_labels[data], dist_min = cluster, current_dist
 
