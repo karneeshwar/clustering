@@ -86,7 +86,7 @@ if __name__ == '__main__':
         # Randomly select a row and apply kmeans++ initialization algorithm to determine the rest of the cluster means
         initializer = 1
         cluster_mean = {initializer: input_data[numpython.random.choice(range(0, datas))]}
-        # Run until we have k means for clusters k clusters
+        # Run until we have k means for k clusters
         while k_clusters > initializer:
             initializer += 1
             dist_dr = 0
