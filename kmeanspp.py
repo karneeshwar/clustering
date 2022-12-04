@@ -1,4 +1,4 @@
-# To compute the quantization error in clustering
+# To perform K-means++ clustering
 # import statements:
 #   sys for defining and retrieving program arguments
 #   numpy to import and perform matrix operations with given data
@@ -96,7 +96,7 @@ if __name__ == '__main__':
                 dist_nr = float('inf')
                 # Compute the minimum distance from all the cluster means
                 for cluster in cluster_mean.keys():
-                    dist_nr = min(numpython.sum(numpython.square(input_data[data] - cluster_mean[cluster])), dist_nr)
+                    dist_nr = min(numpython.sum(numpython.square(input_data[data] - cluster_mean[cluster]))**0.5, dist_nr)
                 # The weights are proportional to the distance square of each data point from the cluster means
                 dist_dr += dist_nr ** 2
                 weights[data] = dist_nr ** 2
@@ -111,7 +111,7 @@ if __name__ == '__main__':
             for data in range(datas):
                 dist_min = float('inf')
                 for cluster in cluster_mean.keys():
-                    current_dist = numpython.sum(numpython.square(input_data[data] - cluster_mean[cluster]))
+                    current_dist = numpython.sum(numpython.square(input_data[data] - cluster_mean[cluster]))**0.5
                     if dist_min >= current_dist:
                         current_labels[data], dist_min = cluster, current_dist
 
