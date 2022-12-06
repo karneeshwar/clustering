@@ -1,0 +1,179 @@
+Research2 - To show cases where soft clustering is worse than hard clustering
+
+Dataset 1 produces same quantization error for both converted hard clusters and actual hard clusters.
+Dataset 2 converted hard clusters have higher quantization error than actual hard clusters
+Dataset 3 converted hard clusters have higher quantization error than actual hard clusters
+Dataset 4 converted hard clusters have higher quantization error than actual hard clusters
+
+So, we conclude that soft clustering is worse than hard clustering when we convert soft clusters to hard. Software clustering can be used for specific applications which requires the soft clusters only, in other applications where hard clusters are required we can use kmeans++ instead of converting soft clusters to hard. In case of computation, computing soft clusters and hard clusters seperately with 2 different algotithms is not feasible, conversion of soft clusters to hard is appreciated as the difference in quantization error of both algorithms is comparatively less.
+
+1. Dataset 1
+
+	1.1: Data set = iris_12_10.csv (random samples collected from iris.csv using fraction_xy.py with random seed = 12 and fraction = 10%, the dataset has 15 samples)
+
+	1.2: c(i) from converting soft clustering to hard clustering labels of size = 15 x 1
+
+			fuzzyLloyd.py (Run Configuration: python3 fuzzyLloyd.py iris_12_10.csv 3 10 2 iris_12_10_fuzzyLloyd.txt)
+
+			-----
+			| 1 |
+			| 1 |
+			| 1 |
+			| 1 |
+			| 1 |
+			| 3 |
+			| 3 |
+			| 2 |
+			| 3 |
+			| 2 |
+			| 2 |
+			| 2 |
+			| 2 |
+			| 3 |
+			| 2 |
+			-----
+
+	1.3: error of c(i) converted hard cluster = 5.423214285714286 (Calculated with parameters, k = 3, r = 10, p = 2)
+
+	1.4: c(i) hard clustering labels of size = 15 x 1
+
+			lloyd.py (Run Configuration: python3 lloyd.py iris_12_10.csv 3 10 iris_12_10_lloyd.txt)
+
+			-----
+			| 1 |
+			| 1 |
+			| 1 |
+			| 1 |
+			| 1 |
+			| 1 |
+			| 1 |
+			| 2 |
+			| 2 |
+			| 2 |
+			| 3 |
+			| 3 |
+			| 3 |
+			| 2 |
+			| 3 |
+			-----
+
+	1.5: quantization error of c(i) = 5.423214285714286 (Calculated with parameters, k = 3, r = 10)
+
+	For this data set, both the converted hard cluster and the actual hard cluster have the same quantization error, so we can't say anything on this.
+
+
+2. Dataset 2
+
+	1.1: Data set = iris_7_10.csv (random samples collected from iris.csv using fraction_xy.py with random seed = 7 and fraction = 10%, the dataset has 15 samples)
+
+	1.2: c(i) from converting soft clustering to hard clustering labels of size = 15 x 1
+
+			fuzzypp.py (Run Configuration: python3 fuzzypp.py iris_12_10.csv 3 10 2 iris_12_10_fuzzypp.txt)
+
+			-----
+			| 1 |
+			| 1 |
+			| 1 |
+			| 1 |
+			| 1 |
+			| 3 |
+			| 3 |
+			| 2 |
+			| 3 |
+			| 2 |
+			| 2 |
+			| 2 |
+			| 2 |
+			| 3 |
+			| 2 |
+			-----
+
+	1.3: error of c(i) converted hard cluster = 6.609999999999998 (Calculated with parameters, k = 3, r = 10, p = 2)
+
+	1.4: c(i) hard clustering labels - size = 15 x 1
+
+			kmeanspp.py (Run Configuration: python3 kmeanspp.py iris_12_10.csv 3 10 iris_12_10_kmeanspp.txt)
+
+			-----
+			| 3 |
+			| 3 |
+			| 3 |
+			| 3 |
+			| 3 |
+			| 1 |
+			| 2 |
+			| 1 |
+			| 2 |
+			| 1 |
+			| 1 |
+			| 1 |
+			| 1 |
+			| 2 |
+			| 1 |
+			-----
+	
+	1.5: quantization error of c(i) = 6.4171428571428555 (Calculated with parameters, k = 3, r = 10)
+
+	For this data set, the converted hard cluster has a higher quantization error than the actual hard cluster, so soft clustering is worse than hard clustering.
+
+
+3. Dataset 3
+
+	1.1: Data set = iris.csv (The complete iris.csv dataset)
+
+	1.2: c(i) from converting soft clustering to hard clustering labels of size = 150 x 1 (The data shown below is truncated into 5 lines to fit in this report)
+
+			fuzzypp.py (Run Configuration: python3 fuzzypp.py iris.csv 3 10 2 iris_fuzzypp.txt)
+
+			[1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 			 1 1 1 1 1 1 1 1 1 1 1 1 1 3 2 3 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+ 			 2 2 2 3 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 2 3 3 3 3 2 3 3 3 3
+ 			 3 3 2 3 3 3 3 3 2 3 2 3 2 3 3 2 2 3 3 3 3 3 2 3 3 3 3 2 3 3 3 2 3 3 3 2 3
+ 			 3 2]
+
+	1.3: error of c(i) converted hard cluster = 79.11556666666671 (Calculated with parameters, k = 3, r = 10, p = 2)
+
+	1.4: c(i) hard clustering labels - size = 150 x 1 (The data shown below is truncated into 5 lines to fit in this report)
+
+			kmeanspp.py (Run Configuration: python3 kmeanspp.py iris.csv 3 10 iris_kmeanspp.txt)
+
+			[3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
+ 			 3 3 3 3 3 3 3 3 3 3 3 3 3 1 1 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 			 1 1 1 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 2 2 2 2 1 2 2 2 2
+ 			 2 2 1 1 2 2 2 2 1 2 1 2 1 2 2 1 1 2 2 2 2 2 1 2 2 2 2 1 2 2 2 1 2 2 2 1 2
+ 			 2 1]
+	
+	1.5: quantization error of c(i) = 78.94084142614598 (Calculated with parameters, k = 3, r = 10)
+
+	For this data set, the converted hard cluster has a higher quantization error than the actual hard cluster, so soft clustering is worse than hard clustering.
+
+4. Dataset 4
+
+	1.1: Data set = wine.csv (The complete wine.csv dataset)
+
+	1.2: c(i) from converting soft clustering to hard clustering labels of size = 178 x 1 (The data shown below is truncated into 5 lines to fit in this report)
+
+			fuzzypp.py (Run Configuration: python3 fuzzypp.py wine.csv 3 10 2 wine_fuzzypp.txt)
+
+			[2 2 2 2 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 2 2 1 1 2 2 1 2 2 2 2 2 2 1 1
+			 2 2 1 1 2 2 1 1 2 2 2 2 2 2 2 2 2 2 2 1 2 2 3 1 3 1 3 3 1 3 3 1 1 1 3 3 2
+			 1 3 3 3 1 3 3 1 1 3 3 3 3 3 1 1 3 3 3 3 3 1 1 3 1 3 1 3 3 3 1 3 3 3 3 1 3
+			 3 1 3 3 3 3 3 3 3 1 3 3 3 3 3 3 3 3 3 1 3 3 3 1 1 1 3 3 3 3 1 3 3 1 1 3 1
+			 1 3 3 3 3 1 1 1 3 1 1 1 3 1 3 1 1 3 1 1 1 1 3 3 1 1 1 1 1 3]
+
+	1.3: error of c(i) converted hard cluster = 2379535.426106242 (Calculated with parameters, k = 3, r = 10, p = 2)
+
+	1.4: c(i) hard clustering labels - size = 178 x 1 (The data shown below is truncated into 5 lines to fit in this report)
+
+			kmeanspp.py (Run Configuration: python3 kmeanspp.py wine.csv 3 10 wine_kmeanspp.txt)
+
+			[2 2 2 2 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 2 2 1 1 2 2 1 2 2 2 2 2 2 1 1
+ 			 2 2 1 1 2 2 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 1 3 1 3 3 1 3 3 1 1 1 3 3 2
+ 			 1 3 3 3 1 3 3 1 1 3 3 3 3 3 1 1 3 3 3 3 3 1 1 3 1 3 1 3 3 3 1 3 3 3 3 1 3
+ 			 3 1 3 3 3 3 3 3 3 1 3 3 3 3 3 3 3 3 3 1 3 3 1 1 1 1 3 3 3 1 1 3 3 1 1 3 1
+ 			 1 3 3 3 3 1 1 1 3 1 1 1 3 1 3 1 1 3 1 1 1 1 3 3 1 1 1 1 1 3]
+	
+	1.5: quantization error of c(i) = 2370689.68678297 (Calculated with parameters, k = 3, r = 10)
+
+	For this data set, the converted hard cluster has a higher quantization error than the actual hard cluster, so soft clustering is worse than hard clustering.
+
