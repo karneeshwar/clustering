@@ -86,7 +86,7 @@ if __name__ == '__main__':
         # Randomly select k_clusters number of rows from the input data which we use as initial mean of required clusters
         # Create a dictionary (cluster: initial mean of clusters) with keys as cluster and value as the randomly selected row
         cluster_mean = {}
-        random_datas = numpython.random.choice(range(0, datas), size=k_clusters)
+        random_datas = numpython.random.choice(range(0, datas), size=k_clusters, replace=False)
         for random_data in range(len(random_datas)):
             cluster_mean[random_data + 1] = input_data[random_datas[random_data]]
 
