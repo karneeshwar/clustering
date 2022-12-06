@@ -124,13 +124,10 @@ if __name__ == '__main__':
             print('Input data file not found')
             system.exit()
 
-    # # Homework Testing
-    # input_data = numpython.array([[0, 0], [4, 0], [5, 1], [6, 0]])
-
     # Variable for determining the convergence of soft clustering
     # It is a percent value of how much deviation it can have from previous labels => + or - c_value%
     # The default value assigned below is 0.01% = 0.0001
-    # This value can be changed which will reflect in line 195
+    # This value can be changed which will reflect in line 185
     c_value = 0.0001
 
     # Declare and initialize required variables for clustering
@@ -155,10 +152,6 @@ if __name__ == '__main__':
         random_datas = numpython.random.choice(range(0, datas), size=k_clusters, replace=False)
         for random_data in range(len(random_datas)):
             cluster_mean[random_data + 1] = input_data[random_datas[random_data]]
-
-        # # Homework Testing
-        # cluster_mean[1] = input_data[2]
-        # cluster_mean[2] = input_data[3]
 
         # Run the clustering algorithm until convergence
         while 1:
