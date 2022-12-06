@@ -58,9 +58,9 @@ In the following two examples the clustering produced by fuzzy programs are comp
 
 	1.1: Data set = iris_7_10.csv (random samples collected from iris.csv using fraction_xy.py with random seed = 7 and fraction = 10%, the dataset has 15 samples)
 
-	1.2: c(i,j) soft clustering labels - size = 15 x 3 
+	1.2: c(i,j) soft clustering labels of size = 15 x 3 
 
-			fuzzypp.py (Run Configuration: python3 fuzzypp.py iris_12_10.csv 3 10 2 iris_12_10_fuzzypp.txt)
+			fuzzypp.py (Run Configuration: python3 fuzzypp.py iris_7_10.csv 3 10 2 iris_7_10_fuzzypp.txt)
 
 			--------------------------------------------------------------------------------------
 			| 9.919991698409974523e-01  |  5.023483249204790078e-03  |  2.977346909797908090e-03 |
@@ -82,9 +82,9 @@ In the following two examples the clustering produced by fuzzy programs are comp
 
 	1.3: error of c(i, j) = 5.176840192752779 (Calculated with parameters, k = 3, r = 10, p = 2)
 
-	1.4: c(i) hard clustering labels - size = 15 x 1 (Calculated with parameters, k = 3, r = 10)
+	1.4: c(i) hard clustering labels of size = 15 x 1 (Calculated with parameters, k = 3, r = 10)
 
-			kmeanspp.py (Run Configuration: python3 kmeanspp.py iris_12_10.csv 3 10 iris_12_10_kmeanspp.txt)
+			kmeanspp.py (Run Configuration: python3 kmeanspp.py iris_7_10.csv 3 10 iris_7_10_kmeanspp.txt)
 
 			-----
 			| 3 |

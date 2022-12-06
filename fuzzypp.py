@@ -165,7 +165,7 @@ if __name__ == '__main__':
                 weights[data] = dist_nr ** 2
             weights /= dist_dr
             # Randomly choose the next cluster mean using the calculated weights
-            cluster_mean[initializer] = input_data[numpython.random.choice(range(0, datas), p=weights)]
+            cluster_mean[initializer] = input_data[numpython.random.choice(range(0, datas), p=weights, replace=False)]
 
         # Run the clustering algorithm until convergence
         while 1:

@@ -68,7 +68,7 @@ So, we conclude that soft clustering is worse than hard clustering when we conve
 
 	1.2: c(i) from converting soft clustering to hard clustering labels of size = 15 x 1
 
-			fuzzypp.py (Run Configuration: python3 fuzzypp.py iris_12_10.csv 3 10 2 iris_12_10_fuzzypp.txt)
+			fuzzypp.py (Run Configuration: python3 fuzzypp.py iris_7_10.csv 3 10 2 iris_7_10_fuzzypp.txt)
 
 			-----
 			| 1 |
@@ -92,7 +92,7 @@ So, we conclude that soft clustering is worse than hard clustering when we conve
 
 	1.4: c(i) hard clustering labels - size = 15 x 1
 
-			kmeanspp.py (Run Configuration: python3 kmeanspp.py iris_12_10.csv 3 10 iris_12_10_kmeanspp.txt)
+			kmeanspp.py (Run Configuration: python3 kmeanspp.py iris_7_10.csv 3 10 iris_7_10_kmeanspp.txt)
 
 			-----
 			| 3 |
