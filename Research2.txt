@@ -5,7 +5,7 @@ Dataset 2 converted hard clusters have higher quantization error than actual har
 Dataset 3 converted hard clusters have higher quantization error than actual hard clusters
 Dataset 4 converted hard clusters have higher quantization error than actual hard clusters
 
-So, we conclude that soft clustering is worse than hard clustering when we convert soft clusters to hard. Software clustering can be used for specific applications which requires the soft clusters only, in other applications where hard clusters are required we can use kmeans++ instead of converting soft clusters to hard. In case of computation, computing soft clusters and hard clusters seperately with 2 different algotithms is not feasible, conversion of soft clusters to hard is appreciated as the difference in quantization error of both algorithms is comparatively less.
+So, we conclude that soft clustering is worse than hard clustering when we convert soft clusters to hard. Software clustering can be used for specific applications which requires the soft clusters only, in other applications where hard clusters are required we can use kmeans++ instead of converting soft clusters to hard. In case of computation time, computing soft clusters and hard clusters separately with 2 different algorithms is not advisable, conversion of soft clusters to hard is appreciated as the difference in quantization error of both algorithms is comparatively less and the overall computation time is less.
 
 1. Dataset 1
 

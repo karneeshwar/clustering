@@ -1,6 +1,8 @@
 Research1 - To show cases where soft clustering is not hard clustering
 
-In the following two examples the clustering produced by fuzzy programs are completely soft (that is it does not allocate any sample completely to one cluster)
+In the following two examples the clustering produced by fuzzy programs are completely soft (that is it does not allocate any sample completely to one cluster).
+Also, if the soft clusters are converted to hard clusters, the samples in the dataset won't have the same labels as when it is produced with a complete hard cluster algorithm.
+So, there is indeed a difference in separation of data and mean calculation between soft and hard clusterings algorithms.
 
 1. Dataset 1
 
